@@ -1,0 +1,34 @@
+# .coderabbit.yml
+# Configuration for AI-powered code reviews
+
+review:
+  enable: true                  # turns review on
+  on_pull_request: true          # review PRs automatically
+  on_push: false                 # skip reviews on direct pushes
+  summary: true                  # leave a summary comment
+  tone: "friendly senior engineer style"
+  max_comments: 25               # limit total inline comments
+
+  reviewers:
+    - name: "CodeRabbit AI"
+      expertise: ["React", "TypeScript", "Supabase", "TailwindCSS"]
+
+rules:
+  - name: React component quality
+    description: Encourage reusable, memoized, and accessible components.
+  - name: React hooks usage
+    description: Validate proper useEffect dependency arrays and custom hooks.
+  - name: TypeScript typing
+    description: Flag implicit 'any', prefer explicit interfaces and types.
+  - name: Supabase best practices
+    description: Ensure async/await usage, proper error handling, and RLS safety.
+  - name: TailwindCSS efficiency
+    description: Highlight redundant or conflicting class utilities.
+  - name: Performance optimization
+    description: Detect large imports or expensive re-renders.
+  - name: Code readability
+    description: Suggest naming, indentation, and comment improvements.
+  - name: Security checks
+    description: Identify potential leaks (API keys, tokens, or secrets).
+  - name: Accessibility (a11y)
+    description: Remind to include alt text, ARIA roles, and keyboard focus handling.
