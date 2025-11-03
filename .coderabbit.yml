@@ -1,34 +1,79 @@
 # .coderabbit.yml
-# Configuration for AI-powered code reviews
+# Enhanced configuration for deep AI-powered code reviews (Production Readiness Edition)
+
+version: 1
 
 review:
-  enable: true                  # turns review on
-  on_pull_request: true          # review PRs automatically
-  on_push: false                 # skip reviews on direct pushes
-  summary: true                  # leave a summary comment
-  tone: "friendly senior engineer style"
-  max_comments: 25               # limit total inline comments
-
+  enable: true
+  on_pull_request: true          # run automatically for PRs
+  on_push: false
+  summary: true
+  tone: "assertive senior engineer"
+  depth: high
+  max_comments: 30
+  summarize: true
   reviewers:
     - name: "CodeRabbit AI"
-      expertise: ["React", "TypeScript", "Supabase", "TailwindCSS"]
+      expertise:
+        - React
+        - TypeScript
+        - Supabase
+        - TailwindCSS
+        - Node.js
+        - Security
+        - Architecture
+
+  focus:
+    - production-readiness
+    - maintainability
+    - performance
+    - scalability
+    - security
+    - accessibility
+    - best-practices
+
+  path_instructions:
+    "src/**":
+      - Review React component structure for modularity and memoization.
+      - Verify hooks follow React conventions (no nested state updates).
+      - Validate TailwindCSS usage and ensure accessibility (ARIA, alt text, focus).
+    "backend/**":
+      - Check Supabase query patterns for RLS compliance and async error handling.
+      - Confirm API endpoints validate input and handle authentication errors.
+      - Ensure no environment variables or secrets are hardcoded.
+    "**/*.ts":
+      - Review TypeScript interfaces, error handling, and async consistency.
+      - Detect unhandled Promises or implicit 'any' types.
+    "**/*.tsx":
+      - Validate prop typing, component composition, and re-render optimization.
 
 rules:
-  - name: React component quality
-    description: Encourage reusable, memoized, and accessible components.
-  - name: React hooks usage
-    description: Validate proper useEffect dependency arrays and custom hooks.
-  - name: TypeScript typing
-    description: Flag implicit 'any', prefer explicit interfaces and types.
-  - name: Supabase best practices
-    description: Ensure async/await usage, proper error handling, and RLS safety.
-  - name: TailwindCSS efficiency
-    description: Highlight redundant or conflicting class utilities.
-  - name: Performance optimization
-    description: Detect large imports or expensive re-renders.
-  - name: Code readability
-    description: Suggest naming, indentation, and comment improvements.
-  - name: Security checks
-    description: Identify potential leaks (API keys, tokens, or secrets).
+  - name: Architecture integrity
+    description: Ensure clean separation between UI, logic, and data layers.
+  - name: Error handling
+    description: Check all async operations for proper try/catch or guard handling.
+  - name: Supabase security
+    description: Confirm RLS policies and auth checks are respected.
+  - name: Environment safety
+    description: Detect exposed secrets or unsafe variable usage.
+  - name: Performance
+    description: Identify large imports, heavy re-renders, or missing memoization.
+  - name: Maintainability
+    description: Check code readability, naming, and DRY principles.
+  - name: Production readiness
+    description: Validate logging, config structure, and error boundary presence.
   - name: Accessibility (a11y)
-    description: Remind to include alt text, ARIA roles, and keyboard focus handling.
+    description: Enforce alt text, ARIA roles, and keyboard navigation.
+
+scoring:
+  categories:
+    performance: 20
+    security: 25
+    maintainability: 25
+    architecture: 30
+  pass_threshold: 80
+
+output:
+  include_inline_comments: true
+  include_summary: true
+  include_suggestions: true
