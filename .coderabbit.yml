@@ -1,86 +1,72 @@
-# .coderabbit.yml
-# Enhanced configuration for deep AI-powered code reviews (Production Readiness Edition)
-
-version: 1
+# ============================================
+# 🤖 CodeRabbit AI Review + Production Readiness Scoring
+# ============================================
 
 review:
   enable: true
-  on_pull_request: true          # run automatically for PRs
+  on_pull_request: true
   on_push: false
   summary: true
   tone: "friendly senior engineer style"
-  depth: high
   max_comments: 25
-  summarize: true
+
   reviewers:
     - name: "CodeRabbit AI"
       expertise:
-        - React
-        - TypeScript
-        - Supabase
-        - TailwindCSS
-        - Node.js
-        - Security
-        - Architecture
+        - "React"
+        - "TypeScript"
+        - "Supabase"
+        - "TailwindCSS"
+        - "Node.js"
+        - "Security"
 
-  focus:
-    - production-readiness
-    - maintainability
-    - performance
-    - scalability
-    - security
-    - accessibility
-    - best-practices
-
-  path_instructions:
-    "src/**":
-      - Review React component structure for modularity and memoization.
-      - Verify hooks follow React conventions (no nested state updates).
-      - Validate TailwindCSS usage and ensure accessibility (ARIA, alt text, focus).
-    "backend/**":
-      - Check Supabase query patterns for RLS compliance and async error handling.
-      - Confirm API endpoints validate input and handle authentication errors.
-      - Ensure no environment variables or secrets are hardcoded.
-    "**/*.ts":
-      - Review TypeScript interfaces, error handling, and async consistency.
-      - Detect unhandled Promises or implicit 'any' types.
-    "**/*.tsx":
-      - Validate prop typing, component composition, and re-render optimization.
-
-rules:
-  - name: Code quality
-    description: Ensure modular, reusable, lint-clean components.
-  - name: Security
-    description: No exposed API keys, unsafe evals, or missing RLS checks.
-  - name: Performance
-    description: Avoid unnecessary re-renders, large bundle sizes.
-  - name: Maintainability
-    description: Code follows clear structure, comments, naming.
-  - name: Documentation
-    description: README and inline docs are complete and up to date.
-  - name: Architecture integrity
-    description: Ensure clean separation between UI, logic, and data layers.
-  - name: Error handling
-    description: Check all async operations for proper try/catch or guard handling.
-  - name: Supabase security
-    description: Confirm RLS policies and auth checks are respected.
-  - name: Environment safety
-    description: Detect exposed secrets or unsafe variable usage.
-  - name: Production readiness
-    description: Validate logging, config structure, and error boundary presence.
-  - name: Accessibility (a11y)
-    description: Enforce alt text, ARIA roles, and keyboard navigation.
-
+# --------------------------------------------
+# 🧮 Readiness Scoring Configuration
+# --------------------------------------------
 readiness:
   enable: true
   scoring:
-    code_quality: 0.30          # 30% weight
-    security_practices: 0.25    # 25% weight
-    performance: 0.20           # 20% weight
-    maintainability: 0.15       # 15% weight
-    documentation: 0.10         # 10% weight
+    code_quality: 0.30
+    security_practices: 0.25
+    performance: 0.20
+    maintainability: 0.15
+    documentation: 0.10
 
-output:
-  include_inline_comments: true
-  include_summary: true
-  include_suggestions: true
+# --------------------------------------------
+# 📜 Review Rules
+# --------------------------------------------
+rules:
+  - name: Code Quality
+    description: >
+      Components must be modular, follow DRY, include error handling, and pass lint rules.
+
+  - name: Security
+    description: >
+      No exposed keys; environment variables, Supabase RLS, and HTTPS must be used.
+
+  - name: Performance
+    description: >
+      Optimize re-renders, imports, and use async/lazy loading where possible.
+
+  - name: Maintainability
+    description: >
+      Consistent folder structure, reusable utils, and readable naming conventions.
+
+  - name: Documentation
+    description: >
+      README.md, setup steps, and inline comments must be complete and current.
+
+# --------------------------------------------
+# 🔔 Optional Notifications
+# --------------------------------------------
+# Uncomment and configure if you want alerts when reviews are done:
+#
+# notifications:
+#   slack:
+#     enable: true
+#     webhook_url: "https://hooks.slack.com/services/XXXX/XXXX/XXXX"
+#     channel: "#code-reviews"
+#   email:
+#     enable: true
+#     recipients:
+#       - "youremail@example.com"

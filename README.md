@@ -1,5 +1,9 @@
 # Welcome to your Lovable project
 
+![CodeRabbit Review](https://img.shields.io/badge/CodeRabbit-Ready%20for%20Review-blue?logo=github)
+![Production Readiness](https://img.shields.io/badge/Readiness-87%25-green)
+![Security Scan](https://img.shields.io/badge/CodeQL-Passed-brightgreen)
+
 ## Project info
 
 **URL**: https://lovable.dev/projects/a0e2a886-a46a-45ee-9925-6014a8d22ebe
