@@ -1,79 +1,72 @@
-# .coderabbit.yml
-# Enhanced configuration for deep AI-powered code reviews (Production Readiness Edition)
-
-version: 1
+# ============================================
+# 🤖 CodeRabbit AI Review + Production Readiness Scoring
+# ============================================
 
 review:
   enable: true
-  on_pull_request: true          # run automatically for PRs
+  on_pull_request: true
   on_push: false
   summary: true
-  tone: "assertive senior engineer"
-  depth: high
-  max_comments: 30
-  summarize: true
+  tone: "friendly senior engineer style"
+  max_comments: 25
+
   reviewers:
     - name: "CodeRabbit AI"
       expertise:
-        - React
-        - TypeScript
-        - Supabase
-        - TailwindCSS
-        - Node.js
-        - Security
-        - Architecture
+        - "React"
+        - "TypeScript"
+        - "Supabase"
+        - "TailwindCSS"
+        - "Node.js"
+        - "Security"
 
-  focus:
-    - production-readiness
-    - maintainability
-    - performance
-    - scalability
-    - security
-    - accessibility
-    - best-practices
+# --------------------------------------------
+# 🧮 Readiness Scoring Configuration
+# --------------------------------------------
+readiness:
+  enable: true
+  scoring:
+    code_quality: 0.30
+    security_practices: 0.25
+    performance: 0.20
+    maintainability: 0.15
+    documentation: 0.10
 
-  path_instructions:
-    "src/**":
-      - Review React component structure for modularity and memoization.
-      - Verify hooks follow React conventions (no nested state updates).
-      - Validate TailwindCSS usage and ensure accessibility (ARIA, alt text, focus).
-    "backend/**":
-      - Check Supabase query patterns for RLS compliance and async error handling.
-      - Confirm API endpoints validate input and handle authentication errors.
-      - Ensure no environment variables or secrets are hardcoded.
-    "**/*.ts":
-      - Review TypeScript interfaces, error handling, and async consistency.
-      - Detect unhandled Promises or implicit 'any' types.
-    "**/*.tsx":
-      - Validate prop typing, component composition, and re-render optimization.
-
+# --------------------------------------------
+# 📜 Review Rules
+# --------------------------------------------
 rules:
-  - name: Architecture integrity
-    description: Ensure clean separation between UI, logic, and data layers.
-  - name: Error handling
-    description: Check all async operations for proper try/catch or guard handling.
-  - name: Supabase security
-    description: Confirm RLS policies and auth checks are respected.
-  - name: Environment safety
-    description: Detect exposed secrets or unsafe variable usage.
+  - name: Code Quality
+    description: >
+      Components must be modular, follow DRY, include error handling, and pass lint rules.
+
+  - name: Security
+    description: >
+      No exposed keys; environment variables, Supabase RLS, and HTTPS must be used.
+
   - name: Performance
-    description: Identify large imports, heavy re-renders, or missing memoization.
+    description: >
+      Optimize re-renders, imports, and use async/lazy loading where possible.
+
   - name: Maintainability
-    description: Check code readability, naming, and DRY principles.
-  - name: Production readiness
-    description: Validate logging, config structure, and error boundary presence.
-  - name: Accessibility (a11y)
-    description: Enforce alt text, ARIA roles, and keyboard navigation.
+    description: >
+      Consistent folder structure, reusable utils, and readable naming conventions.
 
-scoring:
-  categories:
-    performance: 20
-    security: 25
-    maintainability: 25
-    architecture: 30
-  pass_threshold: 80
+  - name: Documentation
+    description: >
+      README.md, setup steps, and inline comments must be complete and current.
 
-output:
-  include_inline_comments: true
-  include_summary: true
-  include_suggestions: true
+# --------------------------------------------
+# 🔔 Optional Notifications
+# --------------------------------------------
+# Uncomment and configure if you want alerts when reviews are done:
+#
+# notifications:
+#   slack:
+#     enable: true
+#     webhook_url: "https://hooks.slack.com/services/XXXX/XXXX/XXXX"
+#     channel: "#code-reviews"
+#   email:
+#     enable: true
+#     recipients:
+#       - "youremail@example.com"
