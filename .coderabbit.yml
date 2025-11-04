@@ -8,9 +8,9 @@ review:
   on_pull_request: true          # run automatically for PRs
   on_push: false
   summary: true
-  tone: "assertive senior engineer"
+  tone: "friendly senior engineer style"
   depth: high
-  max_comments: 30
+  max_comments: 25
   summarize: true
   reviewers:
     - name: "CodeRabbit AI"
@@ -48,6 +48,16 @@ review:
       - Validate prop typing, component composition, and re-render optimization.
 
 rules:
+  - name: Code quality
+    description: Ensure modular, reusable, lint-clean components.
+  - name: Security
+    description: No exposed API keys, unsafe evals, or missing RLS checks.
+  - name: Performance
+    description: Avoid unnecessary re-renders, large bundle sizes.
+  - name: Maintainability
+    description: Code follows clear structure, comments, naming.
+  - name: Documentation
+    description: README and inline docs are complete and up to date.
   - name: Architecture integrity
     description: Ensure clean separation between UI, logic, and data layers.
   - name: Error handling
@@ -56,22 +66,19 @@ rules:
     description: Confirm RLS policies and auth checks are respected.
   - name: Environment safety
     description: Detect exposed secrets or unsafe variable usage.
-  - name: Performance
-    description: Identify large imports, heavy re-renders, or missing memoization.
-  - name: Maintainability
-    description: Check code readability, naming, and DRY principles.
   - name: Production readiness
     description: Validate logging, config structure, and error boundary presence.
   - name: Accessibility (a11y)
     description: Enforce alt text, ARIA roles, and keyboard navigation.
 
-scoring:
-  categories:
-    performance: 20
-    security: 25
-    maintainability: 25
-    architecture: 30
-  pass_threshold: 80
+readiness:
+  enable: true
+  scoring:
+    code_quality: 0.30          # 30% weight
+    security_practices: 0.25    # 25% weight
+    performance: 0.20           # 20% weight
+    maintainability: 0.15       # 15% weight
+    documentation: 0.10         # 10% weight
 
 output:
   include_inline_comments: true
